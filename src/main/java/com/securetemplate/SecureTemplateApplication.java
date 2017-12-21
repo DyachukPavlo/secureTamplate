@@ -28,13 +28,7 @@ public class SecureTemplateApplication {
 		System.getProperties().put("server.port", 8095);
 		SpringApplication.run(SecureTemplateApplication.class, args);
 	}
-/*
-  @Bean
-	LocalContainerEntityManagerFactoryBean entityManagerFactory(){
-		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-		entityManagerFactoryBean.setPackagesToScan("com.securetemplate.repository");
-		return entityManagerFactoryBean;
-  }*/
+
 
 }
 

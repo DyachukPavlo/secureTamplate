@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,8 +27,8 @@ import org.springframework.web.filter.CorsFilter;
 @Order(2)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private AuthProvider authenticationProvider;
+
+    private AuthenticationProvider authenticationProvider;
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
     @Autowired
@@ -81,4 +83,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return new CorsFilter(source);
     }
 
+    public void setAuthenticationProvider(AuthenticationProvider authenticationProvider) {
+        this.authenticationProvider = authenticationProvider;
+    }
+
+    public SpringSecurityConfig() {
+        if(this.authenticationProvider == null){
+            setAuthenticationProvider(new AuthProvider());
+        }
+    }
+
+    /*@Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(securityUserDetailsService);
+    }*/
 }
